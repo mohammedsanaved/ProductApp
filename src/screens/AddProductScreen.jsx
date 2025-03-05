@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomButton from '../components/CustomButton';
 import axios from 'axios';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const AddProductScreen = ({ navigation }) => {
   const validationSchema = Yup.object().shape({
@@ -131,25 +132,25 @@ const AddProductScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: moderateScale(20),
     backgroundColor: '#fff',
   },
   label: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: verticalScale(10),
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+    padding: moderateScale(10),
+    borderRadius: moderateScale(5),
+    marginBottom: verticalScale(10),
   },
   error: {
     color: 'red',
-    fontSize: 12,
-    marginBottom: 10,
+    fontSize: moderateScale(12),
+    marginBottom: verticalScale(10),
   },
 });
 

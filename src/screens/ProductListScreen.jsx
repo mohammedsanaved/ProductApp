@@ -15,6 +15,7 @@ import ProductCard from '../components/ProductCard';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const ProductListScreen = () => {
   const [products, setProducts] = useState([]);
@@ -84,9 +85,23 @@ const ProductListScreen = () => {
               }
               onEdit={() => navigation.navigate('EditProduct', { id: item.id })}
               onDelete={() => deleteProduct(item.id)}
-              viewIcon={<Feather name='eye' size={24} color='black' />}
-              editIcon={<FontAwesome6 name='edit' size={24} color='white' />}
-              deleteIcon={<AntDesign name='delete' size={24} color='black' />}
+              viewIcon={
+                <Feather name='eye' size={moderateScale(24)} color='black' />
+              }
+              editIcon={
+                <FontAwesome6
+                  name='edit'
+                  size={moderateScale(24)}
+                  color='white'
+                />
+              }
+              deleteIcon={
+                <AntDesign
+                  name='delete'
+                  size={moderateScale(24)}
+                  color='black'
+                />
+              }
             />
           )}
         />
@@ -98,28 +113,28 @@ const ProductListScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: moderateScale(10),
     backgroundColor: '#f5f5f5',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: verticalScale(15),
     justifyContent: 'space-between',
   },
   searchInput: {
-    height: 40,
+    height: verticalScale(40),
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
+    borderRadius: moderateScale(5),
+    paddingHorizontal: moderateScale(10),
     backgroundColor: '#fff',
     width: '70%',
   },
   addButton: {
     backgroundColor: '#007bff',
-    padding: 10,
-    borderRadius: 5,
+    padding: moderateScale(10),
+    borderRadius: moderateScale(5),
     alignItems: 'center',
   },
   addButtonText: {

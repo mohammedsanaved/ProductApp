@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Touchable,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-const ProductCard = ({ product, onView, onEdit, onDelete, viewIcon }) => {
+const ProductCard = ({ product, onView, onEdit, onDelete }) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
@@ -24,19 +18,19 @@ const ProductCard = ({ product, onView, onEdit, onDelete, viewIcon }) => {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={onView} style={styles.button}>
-          <Feather name='eye' size={24} color='white' />
+          <Feather name='eye' size={moderateScale(24)} color='white' />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onEdit}
           style={[styles.button, styles.editButton]}
         >
-          <FontAwesome6 name='edit' size={24} color='white' />
+          <FontAwesome6 name='edit' size={moderateScale(24)} color='white' />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onDelete}
           style={[styles.button, styles.deleteButton]}
         >
-          <AntDesign name='delete' size={24} color='white' />
+          <AntDesign name='delete' size={moderateScale(24)} color='white' />
         </TouchableOpacity>
       </View>
     </View>
@@ -46,53 +40,53 @@ const ProductCard = ({ product, onView, onEdit, onDelete, viewIcon }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    marginVertical: 8,
-    borderRadius: 10,
+    marginVertical: verticalScale(8),
+    borderRadius: moderateScale(10),
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: moderateScale(4),
     elevation: 3,
   },
   cardContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: moderateScale(10),
   },
   textContainer: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: moderateScale(10),
   },
   image: {
-    width: 100,
-    height: 100,
+    width: scale(100),
+    height: verticalScale(100),
     resizeMode: 'contain',
   },
   title: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
   },
   price: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: 'green',
-    marginVertical: 5,
+    marginVertical: verticalScale(5),
   },
   category: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: 'gray',
   },
   buttonContainer: {
     backgroundColor: '#E8F9FF',
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: moderateScale(10),
+    borderBottomLeftRadius: moderateScale(10),
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 10,
-    padding: 10,
-    marginTop: 10,
+    gap: moderateScale(10),
+    padding: moderateScale(10),
+    marginTop: verticalScale(10),
   },
   button: {
-    padding: 6,
-    borderRadius: 5,
+    padding: moderateScale(6),
+    borderRadius: moderateScale(5),
     backgroundColor: '#007bff',
   },
   editButton: {

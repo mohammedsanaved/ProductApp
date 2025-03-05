@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 
 const CustomButton = ({ title, onPress, style, textStyle }) => {
   return (
@@ -11,8 +12,8 @@ const CustomButton = ({ title, onPress, style, textStyle }) => {
 
 const styles = StyleSheet.create({
   button: {
-    padding: 10,
-    borderRadius: 50,
+    padding: moderateScale(10),
+    borderRadius: moderateScale(50),
     backgroundColor: '#007bff',
     alignItems: 'center',
   },

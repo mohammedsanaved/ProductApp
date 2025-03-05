@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   TextInput,
-  Button,
   ActivityIndicator,
   StyleSheet,
   Alert,
-  TouchableOpacity,
 } from 'react-native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
 import CustomButton from '../components/CustomButton';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 const EditProductScreen = ({ route, navigation }) => {
   const { id } = route.params;
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required('Title is required'),
+    price: Yup.number()
+      .typeError('Price must be a number')
+      .required('Price is required'),
+    description: Yup.string().required('Description is required'),
+  });
 
-  useEffect(() => {
-    fetchProductDetails();
-  }, []);
-
-  const fetchProductDetails = async () => {
+  const fetchProductDetails = async (setValues, setLoading) => {
     try {
       const response = await axios.get(
         `https://fakestoreapi.com/products/${id}`
       );
-      setProduct(response.data);
-      setTitle(response.data.title);
-      setPrice(response.data.price.toString());
-      setDescription(response.data.description);
+      setValues({
+        title: response.data.title,
+        price: response.data.price.toString(),
+        description: response.data.description,
+      });
     } catch (error) {
       console.error('Error fetching product details:', error);
     } finally {
@@ -40,12 +40,12 @@ const EditProductScreen = ({ route, navigation }) => {
     }
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (values) => {
     try {
       await axios.put(`https://fakestoreapi.com/products/${id}`, {
-        title,
-        price: parseFloat(price),
-        description,
+        title: values.title,
+        price: parseFloat(values.price),
+        description: values.description,
       });
       Alert.alert('Success', 'Product updated successfully!');
       navigation.goBack();
@@ -55,41 +55,86 @@ const EditProductScreen = ({ route, navigation }) => {
     }
   };
 
-  if (loading) {
-    return (
-      <ActivityIndicator size='large' color='#0000ff' style={styles.loader} />
-    );
-  }
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Title:</Text>
-      <TextInput style={styles.input} value={title} onChangeText={setTitle} />
+    <Formik
+      initialValues={{ title: '', price: '', description: '' }}
+      validationSchema={validationSchema}
+      onSubmit={handleUpdate}
+    >
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+        setValues,
+      }) => {
+        const [loading, setLoading] = React.useState(true);
 
-      <Text style={styles.label}>Price:</Text>
-      <TextInput
-        style={styles.input}
-        value={price}
-        onChangeText={setPrice}
-        keyboardType='numeric'
-      />
+        React.useEffect(() => {
+          fetchProductDetails(setValues, setLoading);
+        }, []);
 
-      <Text style={styles.label}>Description:</Text>
-      <TextInput
-        style={styles.input}
-        value={description}
-        onChangeText={setDescription}
-        multiline
-      />
-      <CustomButton title='Update Product' onPress={handleUpdate} />
-    </View>
+        if (loading) {
+          return (
+            <ActivityIndicator
+              size='large'
+              color='#0000ff'
+              style={styles.loader}
+            />
+          );
+        }
+
+        return (
+          <View style={styles.container}>
+            <Text style={styles.label}>Title:</Text>
+            <TextInput
+              style={styles.input}
+              value={values.title}
+              onChangeText={handleChange('title')}
+              onBlur={handleBlur('title')}
+            />
+            {touched.title && errors.title && (
+              <Text style={styles.error}>{errors.title}</Text>
+            )}
+
+            <Text style={styles.label}>Price:</Text>
+            <TextInput
+              style={styles.input}
+              value={values.price}
+              onChangeText={handleChange('price')}
+              onBlur={handleBlur('price')}
+              keyboardType='numeric'
+            />
+            {touched.price && errors.price && (
+              <Text style={styles.error}>{errors.price}</Text>
+            )}
+
+            <Text style={styles.label}>Description:</Text>
+            <TextInput
+              style={styles.input}
+              value={values.description}
+              onChangeText={handleChange('description')}
+              onBlur={handleBlur('description')}
+              multiline
+            />
+            {touched.description && errors.description && (
+              <Text style={styles.error}>{errors.description}</Text>
+            )}
+
+            <CustomButton title='Update Product' onPress={handleSubmit} />
+          </View>
+        );
+      }}
+    </Formik>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: moderateScale(20),
     backgroundColor: '#fff',
   },
   loader: {
@@ -98,16 +143,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: verticalScale(10),
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+    padding: moderateScale(10),
+    borderRadius: moderateScale(5),
+    marginBottom: verticalScale(10),
+  },
+  error: {
+    color: 'red',
+    fontSize: moderateScale(12),
+    marginBottom: verticalScale(10),
   },
 });
 

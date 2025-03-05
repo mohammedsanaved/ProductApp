@@ -47,7 +47,10 @@ const EditProductScreen = ({ route, navigation }) => {
         price: parseFloat(values.price),
         description: values.description,
       });
-      Alert.alert('Success', 'Product updated successfully!');
+      Alert.alert(
+        'Success',
+        'Product updated successfully! (Note: Changes are not persisted on the server)'
+      );
       navigation.goBack();
     } catch (error) {
       console.error('Error updating product:', error);

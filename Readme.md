@@ -4,6 +4,8 @@
 
 This is a **React Native** application that allows users to **add, view, edit, and delete products**. The app integrates with the **FakeStore API** to fetch and manage product data.
 
+**Note:** The FakeStore API does not persist changes made using POST, PUT, or DELETE requests. Any modifications will not be saved on the server.
+
 ## Features
 
 - **Product Listing**: Fetch and display products from the API.

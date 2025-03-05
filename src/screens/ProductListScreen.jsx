@@ -44,7 +44,10 @@ const ProductListScreen = () => {
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product.id !== id)
       );
-      Alert.alert('Success', 'Product deleted successfully!');
+      Alert.alert(
+        'Success',
+        'Product deleted successfully! (Note: Changes are not persisted on the server)'
+      );
     } catch (error) {
       console.error('Error deleting product:', error);
       Alert.alert('Error', 'Failed to delete product');

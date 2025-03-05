@@ -30,7 +30,11 @@ const AddProductScreen = ({ navigation }) => {
       };
 
       await axios.post('https://fakestoreapi.com/products', newProduct);
-      Alert.alert('Success', 'Product added successfully!');
+      Alert.alert(
+        'Success',
+        'Product added successfully! (Note: Changes are not persisted on the server)'
+      );
+
       resetForm();
       navigation.navigate('ProductList', { newProduct });
     } catch (error) {

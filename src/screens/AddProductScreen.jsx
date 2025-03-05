@@ -63,6 +63,7 @@ const AddProductScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             value={values.title}
+            placeholder='Enter product title'
             onChangeText={handleChange('title')}
             onBlur={handleBlur('title')}
           />
@@ -73,6 +74,7 @@ const AddProductScreen = ({ navigation }) => {
           <Text style={styles.label}>Price:</Text>
           <TextInput
             style={styles.input}
+            placeholder='Enter product price'
             value={values.price}
             onChangeText={handleChange('price')}
             onBlur={handleBlur('price')}
@@ -86,6 +88,7 @@ const AddProductScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             value={values.description}
+            placeholder='Enter product description'
             onChangeText={handleChange('description')}
             onBlur={handleBlur('description')}
             multiline
@@ -97,6 +100,7 @@ const AddProductScreen = ({ navigation }) => {
           <Text style={styles.label}>Category:</Text>
           <TextInput
             style={styles.input}
+            placeholder='Enter product category'
             value={values.category}
             onChangeText={handleChange('category')}
             onBlur={handleBlur('category')}
@@ -108,6 +112,7 @@ const AddProductScreen = ({ navigation }) => {
           <Text style={styles.label}>Image URL:</Text>
           <TextInput
             style={styles.input}
+            placeholder='Enter product image URL'
             value={values.image}
             onChangeText={handleChange('image')}
             onBlur={handleBlur('image')}

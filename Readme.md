@@ -1,4 +1,4 @@
-# React Native Product Management App
+# React Native Product App
 
 ## Overview
 
@@ -21,7 +21,7 @@ This is a **React Native** application that allows users to **add, view, edit, a
 
 ## Technologies Used
 
-- **React Native** (Expo or CLI)
+- **React Native** (Expo)
 - **React Navigation** for screen navigation
 - **Axios** for API calls
 - **Formik & Yup** for form handling and validation
@@ -63,7 +63,7 @@ This project uses the **FakeStore API** for product data.
 ## Folder Structure
 
 ```
-react-native-poc/
+ProductApp/
 │── src/
 │   ├── components/        # Reusable UI components
 │   ├── screens/           # App screens
